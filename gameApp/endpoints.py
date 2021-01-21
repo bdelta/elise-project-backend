@@ -20,7 +20,7 @@ class FetchList(Resource):
 # Get using id of the excel file to be grabbed
 class FetchExcel(Resource):
     def get(self, todo_id):
-        response = send_from_directory(directory="../experiments/xls", filename="{}.xls".format(todo_id))
+        response = send_from_directory(directory="./experiments/xls", filename="{}.xls".format(todo_id))
         response.headers['Access-Control-Allow-Origin'] = '*'
         response.headers['content-type'] = 'application/vnd.ms-excel'
         return response
