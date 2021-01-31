@@ -3,7 +3,7 @@ from flask_restful import reqparse, Resource
 from models import db, Experiments
 import json
 import tablib
-import os
+from pathlib import Path
 
 EXPERIMENT_FOLDER = "./experiments/"
 JSON_FOLDER = EXPERIMENT_FOLDER + "json/"
@@ -33,12 +33,13 @@ class CreateEntry(Resource):
 
     # Save to json file, need brackets for tablib compatibility
     def save_to_json(self, json_data, id_num):
-        print(os.listdir(os.curdir))
+        Path('./experiments/json').mkdir(parents=True, exist_ok=True)
         with open(f"{JSON_FOLDER}{id_num}.json", "w+") as f:
             f.write(json.dumps(json_data))
 
     # Create the xls file and save locally a copy
     def save_to_xls(self, id_num):
+        Path('./experiments/xls').mkdir(parents=True, exist_ok=True)
         xls_data = tablib.Dataset()
         json_data = json.load(open(f"{JSON_FOLDER}{id_num}.json"))
         data = json_data['data']
