@@ -4,8 +4,9 @@ from models import db, Experiments
 import json
 import tablib
 
-EXPERIMENT_FOLDER = "./experiments/json/"
-XLS_FOLDER = "./experiments/xls/"
+EXPERIMENT_FOLDER = "../experiments/"
+JSON_FOLDER = EXPERIMENT_FOLDER + "json/"
+XLS_FOLDER = EXPERIMENT_FOLDER + "xls/"
 
 class HelloWorld(Resource):
     def get(self):
@@ -20,7 +21,7 @@ class FetchList(Resource):
 # Get using id of the excel file to be grabbed
 class FetchExcel(Resource):
     def get(self, todo_id):
-        response = send_from_directory(directory="./experiments/xls", filename="{}.xls".format(todo_id))
+        response = send_from_directory(directory=XLS_FOLDER, filename="{}.xls".format(todo_id))
         response.headers['Access-Control-Allow-Origin'] = '*'
         response.headers['content-type'] = 'application/vnd.ms-excel'
         return response
@@ -30,13 +31,13 @@ class CreateEntry(Resource):
 
     # Save to json file, need brackets for tablib compatibility
     def save_to_json(self, json_data, id_num):
-        with open(f"{EXPERIMENT_FOLDER}{id_num}.json", "w+") as f:
+        with open(f"{JSON_FOLDER}{id_num}.json", "w+") as f:
             f.write(json.dumps(json_data))
 
     # Create the xls file and save locally a copy
     def save_to_xls(self, id_num):
         xls_data = tablib.Dataset()
-        json_data = json.load(open(f"{EXPERIMENT_FOLDER}{id_num}.json"))
+        json_data = json.load(open(f"{JSON_FOLDER}{id_num}.json"))
         data = json_data['data']
 
         xls_data.headers = list(data[0].keys())
