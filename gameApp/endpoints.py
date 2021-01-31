@@ -30,10 +30,10 @@ class FetchExcel(Resource):
 
 class CreateEntry(Resource):
 
-    print(os.listdir(os.curdir))
 
     # Save to json file, need brackets for tablib compatibility
     def save_to_json(self, json_data, id_num):
+        print(os.listdir(os.curdir))
         with open(f"{JSON_FOLDER}{id_num}.json", "w+") as f:
             f.write(json.dumps(json_data))
 
