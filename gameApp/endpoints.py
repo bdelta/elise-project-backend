@@ -3,8 +3,9 @@ from flask_restful import reqparse, Resource
 from models import db, Experiments
 import json
 import tablib
+import os
 
-EXPERIMENT_FOLDER = "../experiments/"
+EXPERIMENT_FOLDER = "./experiments/"
 JSON_FOLDER = EXPERIMENT_FOLDER + "json/"
 XLS_FOLDER = EXPERIMENT_FOLDER + "xls/"
 
@@ -28,6 +29,8 @@ class FetchExcel(Resource):
 
 
 class CreateEntry(Resource):
+
+    print(os.listdir(os.curdir))
 
     # Save to json file, need brackets for tablib compatibility
     def save_to_json(self, json_data, id_num):
