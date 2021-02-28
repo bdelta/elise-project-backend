@@ -14,7 +14,7 @@ with app.app_context():
 
 from endpoints import HelloWorld, FetchList, FetchExcel, CreateEntry, RemakeTable
 api.add_resource(HelloWorld, '/')
-api.add_resource(FetchExcel, '/fetchxls/<todo_id>')
+api.add_resource(FetchExcel, '/fetchxls/<xls_id>')
 api.add_resource(CreateEntry, '/create')
 api.add_resource(FetchList, '/list')
 api.add_resource(RemakeTable, '/remakeTable')
