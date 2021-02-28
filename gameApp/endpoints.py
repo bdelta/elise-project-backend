@@ -27,9 +27,7 @@ class FetchExcel(Resource):
         response.headers['content-type'] = 'application/vnd.ms-excel'
         return response
 
-
 class CreateEntry(Resource):
-
 
     # Save to json file, need brackets for tablib compatibility
     def save_to_json(self, json_data, id_num):
@@ -58,7 +56,7 @@ class CreateEntry(Resource):
     def save_entry_to_db(self, data):
         personal_data = data['personal_info']
         experiment = Experiments(
-            first_name=personal_data['first_name'], last_name=personal_data['last_name'], email=personal_data['email'])
+            first_name=personal_data['first_name'], last_name=personal_data['last_name'], email=personal_data['email'], experiment_type=personal_data['experiment_type'])
         db.session.add(experiment)
         db.session.commit()
 
