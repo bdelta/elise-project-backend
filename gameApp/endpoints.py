@@ -42,6 +42,8 @@ class CreateEntry(Resource):
         json_data = json.load(open(f"{JSON_FOLDER}{id_num}.json"))
         data = json_data['data']
 
+        print(data)
+
         xls_data.headers = list(data[0].keys())
 
         for row in data:
