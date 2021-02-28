@@ -74,9 +74,9 @@ class CreateEntry(Resource):
     def options(self):
         return {}, 200, {"Access-Control-Allow-Origin" : "*", 'Access-Control-Allow-Headers' : "*", 'Access-Control-Allow-Methods': "*"}
 
-class DeleteTable(Resource):
+class RemakeTable(Resource):
     def get(self):
         Experiments.__table__.drop(db.engine)
         db.create_all()
 
-        return {"message": "Remake table success"}, 200, {"Access-Control-Allow-Origin" : "*"}
+        return {"message": "Remake table experiments success"}, 200, {"Access-Control-Allow-Origin" : "*"}
