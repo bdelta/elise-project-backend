@@ -77,3 +77,6 @@ class CreateEntry(Resource):
 class DeleteTable(Resource):
     def get(self):
         Experiments.__table__.drop(db.engine)
+        db.create_all()
+
+        return {"message": "Remake table success"}, 200, {"Access-Control-Allow-Origin" : "*"}
