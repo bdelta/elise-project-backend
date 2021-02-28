@@ -73,3 +73,7 @@ class CreateEntry(Resource):
     # Cross site origin stuff
     def options(self):
         return {}, 200, {"Access-Control-Allow-Origin" : "*", 'Access-Control-Allow-Headers' : "*", 'Access-Control-Allow-Methods': "*"}
+
+class DeleteTable(Resource):
+    def get(self):
+        Experiments.__table__.drop(db.engine)

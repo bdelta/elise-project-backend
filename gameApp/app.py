@@ -12,11 +12,12 @@ api = Api(app)
 with app.app_context():
     db.create_all()
 
-from endpoints import HelloWorld, FetchList, FetchExcel, CreateEntry
+from endpoints import HelloWorld, FetchList, FetchExcel, CreateEntry, DeleteTable
 api.add_resource(HelloWorld, '/')
 api.add_resource(FetchExcel, '/fetchxls/<todo_id>')
 api.add_resource(CreateEntry, '/create')
 api.add_resource(FetchList, '/list')
+api.add_resource(DeleteTable, '/deleteAll')
 
 if __name__ == '__main__':
     Path('./experiments/json').mkdir(parents=True, exist_ok=True)
