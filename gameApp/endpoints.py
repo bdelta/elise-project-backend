@@ -30,13 +30,13 @@ class CreateEntry(Resource):
 
     # Save to json file, need brackets for tablib compatibility
     def save_to_json(self, json_data, id_num):
-        Path('./experiments/json').mkdir(parents=True, exist_ok=True)
+        Path(JSON_FOLDER).mkdir(parents=True, exist_ok=True)
         with open(f"{JSON_FOLDER}{id_num}.json", "w+") as f:
             f.write(json.dumps(json_data))
 
     # Create the xls file and save locally a copy
     def save_to_xls(self, id_num):
-        Path('./experiments/xls').mkdir(parents=True, exist_ok=True)
+        Path(XLS_FOLDER).mkdir(parents=True, exist_ok=True)
         xls_data = tablib.Dataset()
         json_data = json.load(open(f"{JSON_FOLDER}{id_num}.json"))
         data = json_data['data']
