@@ -4,6 +4,7 @@ from models import db, Experiments
 import json
 import tablib
 from pathlib import Path
+from http_status import HttpStatus
 
 EXPERIMENT_FOLDER = "./experiments/"
 JSON_FOLDER = EXPERIMENT_FOLDER + "json/"
@@ -17,7 +18,7 @@ class Home(Resource):
 class FetchList(Resource):
     def get(self):
         experiments = Experiments.query.all()
-        return Experiments.serialize_list(experiments), 200 
+        return Experiments.serialize_list(experiments), HttpStatus.OK_200.value
 
 # Get using id of the excel file to be grabbed
 class FetchExcel(Resource):
@@ -40,8 +41,6 @@ class CreateEntry(Resource):
         xls_data = tablib.Dataset()
         json_data = json.load(open(f"{JSON_FOLDER}{id_num}.json"))
         data = json_data['data']
-
-        print(data)
 
         xls_data.headers = list(data[0].keys())
 
@@ -69,7 +68,7 @@ class CreateEntry(Resource):
         self.save_to_json(request.json, id_num)
         self.save_to_xls(id_num)
 
-        return {'id' : id_num}, 201
+        return {'id' : id_num}, HttpStatus.CREATED_201.value
 
 class DeleteEntry(Resource):
 
@@ -77,11 +76,11 @@ class DeleteEntry(Resource):
         entryToDelete = Experiments.query.filter_by(id=id_num)
         entryToDelete.delete()
         db.session.commit()
-        return {'id': id_num}, 200
+        return {'id': id_num}, HttpStatus.OK_200.value
 
 class RemakeTable(Resource):
     def get(self):
         Experiments.__table__.drop(db.engine)
         db.create_all()
 
-        return {"message": "Remake table experiments success"}, 200
+        return {"message": "Remake table experiments success"}, HttpStatus.OK_200.value
