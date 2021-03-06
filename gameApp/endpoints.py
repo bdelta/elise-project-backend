@@ -17,13 +17,12 @@ class Home(Resource):
 class FetchList(Resource):
     def get(self):
         experiments = Experiments.query.all()
-        return Experiments.serialize_list(experiments), 200, {"Access-Control-Allow-Origin" : "*"} 
+        return Experiments.serialize_list(experiments), 200 
 
 # Get using id of the excel file to be grabbed
 class FetchExcel(Resource):
     def get(self, xls_id):
         response = send_from_directory(directory=XLS_FOLDER, filename="{}.xls".format(xls_id))
-        response.headers['Access-Control-Allow-Origin'] = '*'
         response.headers['content-type'] = 'application/vnd.ms-excel'
         return response
 
@@ -70,15 +69,11 @@ class CreateEntry(Resource):
         self.save_to_json(request.json, id_num)
         self.save_to_xls(id_num)
 
-        return {'id' : id_num}, 201, {"Access-Control-Allow-Origin" : "*"}
-
-    # Cross site origin stuff
-    def options(self):
-        return {}, 200, {"Access-Control-Allow-Origin" : "*", 'Access-Control-Allow-Headers' : "*", 'Access-Control-Allow-Methods': "*"}
+        return {'id' : id_num}, 201
 
 class RemakeTable(Resource):
     def get(self):
         Experiments.__table__.drop(db.engine)
         db.create_all()
 
-        return {"message": "Remake table experiments success"}, 200, {"Access-Control-Allow-Origin" : "*"}
+        return {"message": "Remake table experiments success"}, 200
