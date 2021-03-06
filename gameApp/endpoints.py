@@ -9,9 +9,9 @@ EXPERIMENT_FOLDER = "./experiments/"
 JSON_FOLDER = EXPERIMENT_FOLDER + "json/"
 XLS_FOLDER = EXPERIMENT_FOLDER + "xls/"
 
-class HelloWorld(Resource):
+class Home(Resource):
     def get(self):
-        return {'about': 'Hello world!'}
+        return {'about': 'Elise experiment backend'}
 
 # Get a list of all the ids in the database
 class FetchList(Resource):

@@ -12,8 +12,8 @@ api = Api(app)
 with app.app_context():
     db.create_all()
 
-from endpoints import HelloWorld, FetchList, FetchExcel, CreateEntry, RemakeTable
-api.add_resource(HelloWorld, '/')
+from endpoints import Home, FetchList, FetchExcel, CreateEntry, RemakeTable
+api.add_resource(Home, '/')
 api.add_resource(FetchExcel, '/fetchxls/<xls_id>')
 api.add_resource(CreateEntry, '/create')
 api.add_resource(FetchList, '/list')
