@@ -76,6 +76,11 @@ class DeleteEntry(Resource):
         entryToDelete = Experiments.query.filter_by(id=id_num)
         entryToDelete.delete()
         db.session.commit()
+        fileToRemove = Path(f"{JSON_FOLDER}{id_num}.json")
+        try:
+            fileToRemove.unlink()
+        except FileNotFoundError as e:
+            print(f"Error: {e.filename} - {e.strerror}.")
         return {'id': id_num}, HttpStatus.OK_200.value
 
 class RemakeTable(Resource):
