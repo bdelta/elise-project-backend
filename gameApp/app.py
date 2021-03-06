@@ -21,10 +21,11 @@ def after_request(response):
 with app.app_context():
     db.create_all()
 
-from endpoints import Home, FetchList, FetchExcel, CreateEntry, RemakeTable
+from endpoints import Home, FetchList, FetchExcel, CreateEntry, DeleteEntry, RemakeTable
 api.add_resource(Home, '/')
 api.add_resource(FetchExcel, '/fetchxls/<xls_id>')
 api.add_resource(CreateEntry, '/create')
+api.add_resource(DeleteEntry, '/delete/<id_num>')
 api.add_resource(FetchList, '/list')
 api.add_resource(RemakeTable, '/remakeTable')
 

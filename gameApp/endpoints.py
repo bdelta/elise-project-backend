@@ -71,6 +71,14 @@ class CreateEntry(Resource):
 
         return {'id' : id_num}, 201
 
+class DeleteEntry(Resource):
+
+    def post(self, id_num):
+        entryToDelete = Experiments.query.filter_by(id=id_num)
+        entryToDelete.delete()
+        db.session.commit()
+        return {'id': id_num}, 200
+
 class RemakeTable(Resource):
     def get(self):
         Experiments.__table__.drop(db.engine)
